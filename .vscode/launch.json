@@ -1,0 +1,12 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "QuizgenApplication",
+            "request": "launch",
+            "mainClass": "com.example.quizgen.QuizgenApplication",
+            "vmArgs": "-Xms128m -Xmx512m"
+        }
+    ]
+}

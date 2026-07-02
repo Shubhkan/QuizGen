@@ -1,0 +1,7 @@
+version 2
+JvmtiExport can_access_local_variables 0
+JvmtiExport can_hotswap_or_post_breakpoint 1
+JvmtiExport can_post_on_exceptions 0
+# -1624206112 ciObject found
+instanceKlass org/lombokweb/asm/ClassReader
+compile 
