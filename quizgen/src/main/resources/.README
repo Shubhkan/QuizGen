@@ -1,0 +1,85 @@
+# QuizGen – AI-Powered Quiz & Mock Test Generator
+
+QuizGen is a modern, lightweight backend application that automates the creation of practice tests. By leveraging Generative AI, the system converts unstructured study notes or topic prompts into structured, interactive multiple-choice quizzes, evaluates user submissions, and tracks learning progress over time.
+
+This project is built using a decoupled **Model-View-Controller (MVC)** architecture without front-end dependencies, returning clean, human-readable plain-text test papers and scorecard reports directly in the browser or HTTP clients.
+
+---
+
+## 🚀 Key Features
+
+*   **AI Quiz Generation:** Automatically creates custom-length quizzes (e.g., 3, 5, 10 questions) based on raw notes using the **Google Gemini 1.5 Flash API**.
+*   **Plain-Text Visual Rendering:** Returns formatted test papers and scorecards instead of raw JSON, optimizing readability for backend testing.
+*   **Intuitive Attempt Evaluation:** Allows users to submit answers as simple letters (`A, B, C, D`) which are automatically graded against database records.
+*   **Progress Tracking & Analytics:** Logs student attempt history in MySQL and provides aggregated performance reports (total attempts, average score percentage, and highest score).
+*   **Auto-Generated Documentation:** Interactive REST API testing dashboard powered by **Swagger UI (OpenAPI)**.
+
+---
+
+## 🛠️ Technology Stack
+
+*   **Language:** Java 21 (LTS)
+*   **Framework:** Spring Boot 3.3.0 (Spring Web, Spring Data JPA)
+*   **Database:** MySQL
+*   **AI Service:** Google Gemini AI API
+*   **JSON Processor:** Jackson (ObjectMapper)
+*   **API Documentation:** Swagger UI (Springdoc-openapi)
+*   **Build Tool:** Maven
+
+---
+
+## 📊 Database Schema
+
+The database consists of three relational tables managed via Hibernate:
+*   `quizzes`: Stores quiz metadata (ID, title, topic, and creation timestamp).
+*   `questions`: Stores MCQ question text, options A/B/C/D, correct index, and maps back to its parent quiz using a **One-to-Many** relationship.
+*   `quiz_attempts`: Tracks attempt scores, total questions, and timestamps linked to the attempted quiz.
+
+---
+
+## ⚙️ Setup & Installation
+
+### Prerequisites
+*   Java Development Kit (JDK) 21 or higher
+*   MySQL Server running locally
+*   Google Gemini API Key (obtained from [Google AI Studio](https://aistudio.google.com/))
+
+### 1. Database Creation
+Open your MySQL client and run the following command to create a blank database:
+```sql
+CREATE DATABASE quizgen;
+
+
+2. Configuration
+Navigate to src/main/resources/application.properties and configure your database credentials and API key:
+
+properties
+
+
+spring.datasource.username=YOUR_MYSQL_USERNAME
+spring.datasource.password=YOUR_MYSQL_PASSWORD
+gemini.api.key=YOUR_GEMINI_API_KEY
+
+
+
+3. Run the Application
+Open the project in your IDE (VS Code / IntelliJ IDEA) and run the QuizgenApplication.java file. The server will start on port 8081 (or 8080).
+
+📋 API Testing Guide
+Open your browser and navigate to the Swagger dashboard: 👉 http://localhost:8081/swagger-ui/index.html
+
+Endpoint Workflow:
+Generate Quiz: Call POST /api/quizzes/generate by entering a topic, notes (e.g. OOP inheritance basics), and target count of questions.
+View Quiz: Copy the returned Quiz ID and retrieve the quiz format using GET /api/quizzes/{id}.
+Submit Answers: Grade your answers using POST /api/quizzes/{id}/attempt by passing a list of letters (e.g., A, C, B).
+View Performance Stats: Get your history log via GET /api/quizzes/attempts or your metrics report via GET /api/quizzes/analytics.
+
+
+4. Save the file (`Ctrl + S`).
+---
+### Step 2: Push the README to GitHub
+Run these commands in your VS Code terminal to upload it:
+```bash
+git add README.md
+git commit -m "Docs: add README documentation"
+git push origin main
